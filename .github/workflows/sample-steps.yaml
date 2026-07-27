@@ -25,4 +25,4 @@ jobs:
     steps:
       - name: demo
         run: |
-          echo "job version id is ${{ needs.build-id.outputs.value_id }}
+          echo "job version id is ${{ needs.build-id.outputs.value_id }}"
