@@ -15,9 +15,13 @@ jobs:
         exclude:
           - os: windows-latest
             node-version: 18
+          - os: ubuntu-latest
+            node-version: 16
         include:
           - os: ubuntu-latest
             node-version: 18
+          - os: windows-latest
+            node-version: 16
     steps:
       - name: checkout
         uses: actions/checkout@v7
