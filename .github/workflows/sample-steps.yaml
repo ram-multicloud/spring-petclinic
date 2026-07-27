@@ -1,28 +1,21 @@
-name: steps-testing
+name: test-Matrix
 
 on: 
   push:
     branches: '*'
 
 jobs:
-  build-id:
-    runs-on: ubuntu-latest
-    outputs:
-      value_id: ${{ steps.version_data.outputs.version }}
+  test:
+    runs-on: ubutnu-latest
+    strategy:
+      # max-parallel: 2
+      matrix:
+        node-version: [16, 18, 20]
     steps:
-      - name: sample data
-        id: version_data
-        run: |
-          echo "version=1.2.3" >> "$GITHUB_OUTPUT"
+      - name: checkout
+        uses: actions/checkout@v7
 
-      - name: print outputs
-        run: |
-          echo "build version is ${{ steps.version_data.outputs.version}}"
-
-  test-data:
-    runs-on: ubuntu-slim
-    needs: build-id
-    steps:
-      - name: demo
-        run: |
-          echo "job version id is ${{ needs.build-id.outputs.value_id }}"
+      - name: install nodejs
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
